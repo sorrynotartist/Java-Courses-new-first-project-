@@ -1,5 +1,4 @@
 package entity;
-
 import java.io.*;
 import java.util.Scanner;
 
@@ -9,7 +8,6 @@ public class Person {
     int age;
     String underlyingDisease;
     String complaining;
-
     public Person(int id, String name, int age, String underlyingDisease, String complaining) {
         this.id = id;
         this.name = name;
@@ -18,6 +16,10 @@ public class Person {
         this.complaining = complaining;
     }
     File file = new File("output.txt");
+
+    public Person() {
+    }
+
     public static void saveTo (File file, Person person) throws IOException {
         if (file.exists() && file.isFile()) {
             try (FileOutputStream stream = new FileOutputStream(file)) {
@@ -31,7 +33,6 @@ public class Person {
             }
         }
     }
-
     public static Person loadFrom(Person person, File file) throws IOException {
         try (FileInputStream stream = new FileInputStream(file)) {
             try (Scanner scanner = new Scanner(stream)) {
