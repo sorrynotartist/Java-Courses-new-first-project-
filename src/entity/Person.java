@@ -1,13 +1,14 @@
 package entity;
+
 import java.io.*;
 import java.util.Scanner;
 
 public class Person {
-    int id;
-    String name;
-    int age;
-    String underlyingDisease;
-    String complaining;
+    public int id;
+    public String name;
+    public int age;
+    public String underlyingDisease;
+    public String complaining;
     public Person(int id, String name, int age, String underlyingDisease, String complaining) {
         this.id = id;
         this.name = name;
