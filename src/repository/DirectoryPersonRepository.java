@@ -5,7 +5,7 @@ import entity.Person;
 import java.io.*;
 import java.util.Scanner;
 
-public class DirectoryPersonRepository {
+public class DirectoryPersonRepository implements PersonRepository{
     static File dir = new File("file.txt");
 
     public DirectoryPersonRepository(File dir) {
