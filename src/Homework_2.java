@@ -8,8 +8,8 @@ public class Homework_2 {
         System.out.println(increaseEven(6));
         System.out.println(complexSum(3, 4));
         System.out.println(monthDays(4));
-        System.out.println(sequenceCalc(-10, 10));
-        System.out.println(tree(88));
+        System.out.println(sequenceCalc(10, 18));
+        System.out.println(tree(8));
 //        System.out.println(reverse("123456"));
     }
 
@@ -75,7 +75,7 @@ public class Homework_2 {
 
     static int sequenceCalc(int a, int b) {
         int c;
-        for (c = 0; c <= b - 2; c = c + 2) {
+        for (c = a; c <= b - 2; c = c + 2) {
             System.out.println(c);
         }
         return c;
