@@ -4,7 +4,7 @@ public class Homework_4 {
 
     public static void main(String[] args) {
 
-        System.out.println(Arrays.toString(removeFrom(new int[]{5, 4, 8, 9, 46}, 4)));
+        System.out.println(Arrays.toString(removeFrom(new int[]{5, 4, 8, 9, 56}, 4)));
         System.out.println(Arrays.deepToString(matrixColumnReplace(new int[][]{
                         {4, 2, 8, 1},
                         {4, 2, 8, 1},
@@ -148,7 +148,13 @@ public class Homework_4 {
     }
 
     private static int[] removeFrom(int[] arr, int x) {
-        int[] arr2 = new int[arr.length];
+        int resultSize = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] != x) {
+                resultSize++;
+            }
+        }
+        int[] arr2 = new int[resultSize];
         for (int i = 0, j = 0; i < arr.length; i++) {
             if (arr[i] != x) {
                 arr2[j++] = arr[i];
