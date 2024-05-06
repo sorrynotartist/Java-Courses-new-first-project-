@@ -23,17 +23,17 @@ public class DirectoryPersonRepository implements Repository<Person>{
     }
 
     @Override
-    public void save(Person obj) throws IOException {
+    public void save(Person person) throws IOException {
         String nameOfFile;
-        nameOfFile = Integer.toString(obj.id);
+        nameOfFile = Integer.toString(person.id);
         File fileId = new File(dir.getPath() + "/" + nameOfFile + ".txt");
-        try (FileOutputStream stream = new FileOutputStream(dir)) {
+        try (FileOutputStream stream = new FileOutputStream(fileId)) {
             try (PrintWriter writer = new PrintWriter(stream)) {
-                writer.println(obj.id);
-                writer.println(obj.name);
-                writer.println(obj.age);
-                writer.println(obj.underlyingDisease);
-                writer.println(obj.complaining);
+                writer.println(person.id);
+                writer.println(person.name);
+                writer.println(person.age);
+                writer.println(person.underlyingDisease);
+                writer.println(person.complaining);
             }
         }
     }

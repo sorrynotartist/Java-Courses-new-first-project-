@@ -18,6 +18,10 @@ public class Person {
     }
     File file = new File("output.txt");
 
+    public Person() {
+        this.id = id;
+    }
+
     public static void saveTo (File file, Person person) throws IOException {
         if (file.exists() && file.isFile()) {
             try (FileOutputStream stream = new FileOutputStream(file)) {
