@@ -3,7 +3,7 @@ package Homework_5;
 public class Triangle extends Shape{
     double a, b, c;
     public Triangle(int color, double a, double b, double c) {
-        super(color);
+        super(ShapeType.Triangle, color);
         this.a = a;
         this.b = b;
         this.c = c;

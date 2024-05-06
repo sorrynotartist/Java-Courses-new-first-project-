@@ -52,7 +52,7 @@ public class Homework_3 {
         }
         double max = x[0];
         for (int j = 0; j < x.length; j++) {
-            if (x[j] < max) {
+            if (x[j] > max) {
                 max = x[j];
             }
         }
@@ -73,7 +73,7 @@ public class Homework_3 {
     public static int indexOf (int[] arr, int x) {
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] == x) {
-                return x;
+                return i;
             }
         }
         return -1;

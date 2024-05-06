@@ -11,9 +11,11 @@ public class Homework_5 {
     }
 
     public static void Name(String[] names, String city, String region) {
+        String allNames = "Hello,";
         for (int i = 0; i < names.length; i++) {
-            System.out.println("Hello, " + names[i] + "! " + "Welcome to " + city + ", " + region + "!");
-        }
+            allNames += " " + names[i];
+        }            System.out.println(allNames + "! " + "Welcome to " + city + ", " + region + "!");
+
     }
 
     public static String DoubleChar(String example) {

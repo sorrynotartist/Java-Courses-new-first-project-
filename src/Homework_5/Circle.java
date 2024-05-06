@@ -6,7 +6,7 @@ public class Circle extends Shape{
     Point center;
     double r;
     public Circle(int color, Point center, double r) {
-        super(color);
+        super(ShapeType.Circle, color);
         this.center = center;
         this.r = r;
     }
