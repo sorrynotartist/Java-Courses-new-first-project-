@@ -16,7 +16,7 @@ public class Homework_6_and_7 {
             case "load":
                 System.out.println("enter file path to load: ");
                 String pathToLoad = in.nextLine();
-                System.out.println(Person.loadFrom(new Person(), new File(pathToLoad)));
+                System.out.println(Person.loadFrom(new File(pathToLoad))); //????????????
                 break;
             case "enter":
                 Person person = createNewPerson();

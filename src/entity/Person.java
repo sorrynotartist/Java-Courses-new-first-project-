@@ -18,9 +18,11 @@ public class Person {
     }
     File file = new File("output.txt");
 
-    public Person() {
+    public Person(int id, String name) {
         this.id = id;
+        this.name = name;
     }
+
 
     public static void saveTo (File file, Person person) throws IOException {
         if (file.exists() && file.isFile()) {
@@ -35,7 +37,7 @@ public class Person {
             }
         }
     }
-    public static Person loadFrom(Person person, File file) throws IOException {
+    public static Person loadFrom(File file) throws IOException {
         try (FileInputStream stream = new FileInputStream(file)) {
             try (Scanner scanner = new Scanner(stream)) {
                 return new Person(

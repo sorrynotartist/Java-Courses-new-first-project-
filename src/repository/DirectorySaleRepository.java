@@ -1,23 +1,86 @@
 package repository;
 
+import entity.Person;
+import entity.Product;
 import entity.Sale;
 
-import java.io.IOException;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 public class DirectorySaleRepository implements Repository<Sale> {
-    @Override
-    public void save(Sale obj) throws IOException {
+    static File dir = new File("dir.txt");
 
+    public DirectorySaleRepository(File dir) {
+        DirectoryPersonRepository.dir = dir;
+        if (!dir.exists()) {
+            try {
+                dir.mkdir();
+            } catch (Exception e) {
+                throw new IllegalArgumentException(e);
+            }
+        }
+    }
+
+    @Override
+    public void save(Sale sale) throws IOException {
+        String nameOfFile;
+        nameOfFile = Integer.toString(sale.id);
+        File fileId = new File(dir.getPath() + "/" + nameOfFile + ".txt");
+        try (FileOutputStream stream = new FileOutputStream(fileId)) {
+            try (PrintWriter writer = new PrintWriter(stream)) {
+                writer.println(sale.id);
+                writer.println(sale.amount);
+                writer.println(sale.person.id);
+                writer.println(sale.person.name);
+                writer.println(sale.products);
+                for (Map.Entry<Product, Double> productCount : sale.getProducts().entrySet()) {
+                    writer.println(productCount.getKey().id());
+                    writer.println(productCount.getKey().name());
+                    writer.println(productCount.getKey().price());
+                    writer.println(productCount.getValue());
+                }
+            }
+        }
     }
 
     @Override
     public Sale load(int id) throws IOException {
-        return null;
+        File file = new File(dir.getPath() + "/" + id + ".txt");
+        try (Scanner scanner = new Scanner(file)) {
+            scanner.nextLine(); //пропуск, потому что есть инфа о об id
+
+            double amount = Double.parseDouble(scanner.nextLine());
+            int personId = scanner.nextInt();
+            scanner.nextLine(); //особенность сканера (после nextInt всегда идет nextLine
+            String name = scanner.nextLine();
+
+            Person person = new Person(personId, name);
+
+            int productsSize = scanner.nextInt();
+            scanner.nextLine();
+
+            Map<Product, Double> products = new HashMap<>();
+            for (int i = 0; i < productsSize; i++) {
+                int productId = scanner.nextInt();
+                scanner.nextLine();
+                String productName = scanner.nextLine();
+                double price = Double.parseDouble(scanner.nextLine());
+                Product product = new Product(productId, productName, price);
+
+                products.put(product, Double.parseDouble(scanner.nextLine()));
+            }
+            return new Sale(id, amount, person, products);
+
+        }
     }
+
 
     @Override
     public List<Sale> load(List<Integer> ids) throws IOException {
-        return null;
+        List<Sale> list = new ArrayList<>();
+        for (int i = 0; i < ids.size(); i++) {
+            list.add(load(ids.get(i)));
+        }
+        return list;
     }
 }

@@ -40,8 +40,8 @@ public class DirectoryPersonRepository implements Repository<Person>{
 
     @Override
     public Person load(int id) throws IOException {
-        File file = new File(dir.getPath() + "/" + id);
-        try (FileInputStream stream = new FileInputStream(dir)) {
+        File file = new File(dir.getPath() + "/" + id + ".txt");
+        try (FileInputStream stream = new FileInputStream(file)) {
             try (Scanner scanner = new Scanner(stream)) {
                 return new Person(
                         new Integer(scanner.nextLine()),
