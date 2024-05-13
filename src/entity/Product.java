@@ -12,8 +12,7 @@ public class Product implements Comparable<Product> {
         this.price = price;
     }
 
-    public Product(int nextId) { //этот конструктор сам создался, без него не работает;
-                                //и я не очень понимаю, как это все работает
+    public Product(int nextId) {
     }
 
     @Override
@@ -31,5 +30,10 @@ public class Product implements Comparable<Product> {
 
     public double price() {
         return price;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 }

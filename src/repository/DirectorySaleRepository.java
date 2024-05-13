@@ -6,8 +6,10 @@ import entity.Sale;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class DirectorySaleRepository implements Repository<Sale> {
+
     static File dir = new File("dir.txt");
 
     public DirectorySaleRepository(File dir) {
@@ -46,12 +48,17 @@ public class DirectorySaleRepository implements Repository<Sale> {
     @Override
     public Sale load(int id) throws IOException {
         File file = new File(dir.getPath() + "/" + id + ".txt");
+
+        return loadFromFile(file);
+    }
+
+    private static Sale loadFromFile(File file) {
         try (Scanner scanner = new Scanner(file)) {
-            scanner.nextLine(); //пропуск, потому что есть инфа о об id
+            int id = Integer.parseInt(scanner.nextLine());
 
             double amount = Double.parseDouble(scanner.nextLine());
             int personId = scanner.nextInt();
-            scanner.nextLine(); //особенность сканера (после nextInt всегда идет nextLine
+            scanner.nextLine();
             String name = scanner.nextLine();
 
             Person person = new Person(personId, name);
@@ -71,6 +78,8 @@ public class DirectorySaleRepository implements Repository<Sale> {
             }
             return new Sale(id, amount, person, products);
 
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -82,5 +91,12 @@ public class DirectorySaleRepository implements Repository<Sale> {
             list.add(load(ids.get(i)));
         }
         return list;
+    }
+
+    List<Sale> loadAllByPersonId (int id) {
+        return Arrays.stream(dir.listFiles())
+                .map(x -> loadFromFile(x))
+                .filter(x -> x.person.id == id)
+                .collect(Collectors.toList());
     }
 }

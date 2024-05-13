@@ -4,8 +4,10 @@ import entity.Product;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class DirectoryProductRepository implements Repository<Product> {
     static File dir = new File("dir.txt");
@@ -38,6 +40,11 @@ public class DirectoryProductRepository implements Repository<Product> {
     @Override
     public Product load(int id) throws IOException {
         File file = new File(dir.getPath() + "/" + id + ".txt");
+
+        return loadFromFile(file);
+    }
+
+    private static Product loadFromFile(File file) {
         try (FileInputStream stream = new FileInputStream(file)) {
             try (Scanner scanner = new Scanner(stream)) {
                 return new Product(
@@ -46,6 +53,8 @@ public class DirectoryProductRepository implements Repository<Product> {
                         new Double(Double.parseDouble(scanner.nextLine()))
                 );
             }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -56,5 +65,12 @@ public class DirectoryProductRepository implements Repository<Product> {
             list.add(load(id));
         }
         return list;
+    }
+
+    List<Product> loadAllByMaxPrice (double maxPrice) {
+        return Arrays.stream(dir.listFiles())
+                .map(x -> loadFromFile(x))
+                .filter(x -> x.price < maxPrice)
+                .collect(Collectors.toList());
     }
 }

@@ -16,7 +16,7 @@ public class Sale implements Iterable<Product> {
         this.products = products;
     }
 
-    public Sale(int nextId) { //и тут тоже самое, без конструктора не работает
+    public Sale(int nextId) {
     }
 
     @Override

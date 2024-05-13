@@ -2,6 +2,8 @@ package entity;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Homework_6_and_7 {
@@ -46,4 +48,6 @@ public class Homework_6_and_7 {
 
         return new Person(id, name, age, underlyingDisease, complaining);
     }
+
+
 }
